@@ -2,7 +2,7 @@ import Foundation
 
 extension NQScan {
     public struct NetworkSpeed {
-        let bytes: Int
+        public let bytes: Int
 
         public func display(style: ScalableValue.DisplayStyle = .short) -> String {
             let suffix = style == .short ? "bps" : " bits per second"

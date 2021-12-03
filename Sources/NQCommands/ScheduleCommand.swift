@@ -26,6 +26,7 @@ public class ScheduleCommand: NQCommand, Command {
         } else {
             if let previous = timeline.latest {
                 stdout <<< "Last Scan at: \(previous.timestamp)".yellow
+                display(scan: previous)
             }
 
             stdout <<< "Not Scanning: No matching rules".red
@@ -43,6 +44,8 @@ public class ScheduleCommand: NQCommand, Command {
     func rules(storage: NQStorage) -> [NQTScheduleRule] {
         let rules: [NQTScheduleRule] = [
             NQTScheduleRules.NoPreviousScans(),
+            NQTScheduleRules.FailedAndTimeHasPassed(minutes: 0),
+            NQTScheduleRules.SlowAndTimeHasPassed(dlThreshold: 3, ulThreshold: 1, minutes: 5),
             NQTScheduleRules.TimeHasPassed(minutes: storage.config.maxMinuteWait),
         ]
 
