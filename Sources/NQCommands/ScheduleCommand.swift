@@ -24,6 +24,10 @@ public class ScheduleCommand: NQCommand, Command {
 
             display(scan: timeline.latest!)
         } else {
+            if let previous = timeline.latest {
+                stdout <<< "Last Scan at: \(previous.timestamp)".yellow
+            }
+
             stdout <<< "Not Scanning: No matching rules".red
         }
     }
