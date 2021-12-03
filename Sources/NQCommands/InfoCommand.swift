@@ -8,7 +8,7 @@ public class InfoCommand: NQCommand, Command {
     public let shortDescription = "Get some info on the stored results!"
 
     public func execute() throws  {
-        write(header: "Network Quality Info", to: stdout)
+        write(header: "Info", to: stdout)
 
         let storage = try! NQStorage.load()
         let timeline = storage.timeline

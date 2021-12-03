@@ -12,7 +12,7 @@ public class SetupCommand: NQCommand, Command {
     @Flag("--force", description: "Delete any existing files in these locations") var force: Bool
 
     public func execute() throws  {
-        write(header: "Network Quality Scan Setup", to: stdout)
+        write(header: "Setup", to: stdout)
 
         stdout <<< "Preparing...".yellow
 

@@ -9,7 +9,7 @@ public class ScanCommand: NQCommand, Command {
     public let shortDescription = "Check your network quality!"
 
     public func execute() throws  {
-        write(header: "Running Network Quality Scan", to: stdout)
+        write(header: "Scan", to: stdout)
 
         let storage = try! NQStorage.load()
 

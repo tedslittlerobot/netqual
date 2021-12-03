@@ -6,8 +6,12 @@ public class NQCommand {
     public init() {}
 
     func write(header string: String, to stdout: WritableStream) {
-        stdout <<< string.cyan
-        stdout <<< "".padding(toLength: string.count, withPad: "=", startingAt: 0).blue
+        let padding = "    "
+        let header = "\(padding)Network Quality: \(string)\(padding)"
+
+        stdout <<< "".padding(toLength: header.count, withPad: "=", startingAt: 0).blue
+        stdout <<< header.cyan
+        stdout <<< "".padding(toLength: header.count, withPad: "=", startingAt: 0).blue
         stdout <<< ""
     }
 

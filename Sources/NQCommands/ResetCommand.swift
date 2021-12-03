@@ -9,7 +9,7 @@ public class ResetCommand: NQCommand, Command {
     public let shortDescription = "Reset your data."
 
     public func execute() throws  {
-        write(header: "Network Quality Scan Reset", to: stdout)
+        write(header: "Reset", to: stdout)
 
         let storage = try NQStorage.load()
 
