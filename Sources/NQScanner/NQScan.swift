@@ -1,6 +1,7 @@
 import Foundation
 
 public struct NQScan {
+    public let timestamp: Date
     public let dlFlows: Int
     public let dlThroughput: NetworkSpeed
     public let ulFlows: Int

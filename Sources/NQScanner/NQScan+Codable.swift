@@ -2,11 +2,17 @@ import Foundation
 
 extension NQScan: Codable {
     enum CodingKeys: String, CodingKey {
-        case dl_flows, dl_throughput, ul_flows, ul_throughput, responsiveness, error_code, error_domain
+        case dl_flows, dl_throughput, ul_flows, ul_throughput, responsiveness, error_code, error_domain, timestamp
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
+
+        if values.contains(.timestamp) {
+            timestamp = try values.decode(Date.self, forKey: .timestamp)
+        } else {
+            timestamp = Date()
+        }
 
         dlFlows = try values.decode(Int.self, forKey: .dl_flows)
         dlThroughput = NetworkSpeed(bytes: try values.decode(Int.self, forKey: .dl_throughput))
@@ -19,6 +25,8 @@ extension NQScan: Codable {
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
+
+        try container.encode(timestamp, forKey: .timestamp)
 
         try container.encode(dlFlows, forKey: .dl_flows)
         try container.encode(dlThroughput.bytes, forKey: .dl_throughput)

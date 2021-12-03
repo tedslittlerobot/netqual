@@ -9,7 +9,6 @@ public class SetupCommand: NQCommand, Command {
     public let shortDescription = "Setup your system."
 
     @Param var timelineFile: String
-    @Flag("--force", description: "Delete any existing files in these locations") var force: Bool
 
     public func execute() throws  {
         write(header: "Setup", to: stdout)
@@ -17,13 +16,18 @@ public class SetupCommand: NQCommand, Command {
         stdout <<< "Preparing...".yellow
 
         NQConfig.prepare()
+        let config = NQConfig(timelineFile: self.timelineFile)
 
         if FileManager.default.fileExists(atPath: timelineFile) {
             stderr <<< "A file already exists at the path \(timelineFile.clearStyles.yellow)".red
+
+            stderr <<< "Overwriting config file...".yellow
+            let storage = try NQStorage.load()
+            storage.config = config
         } else {
             stdout <<< "Writing config and timeline file...".yellow
 
-            let storage = NQStorage.initialise(from: NQConfig(timelineFile: self.timelineFile))
+            let storage = NQStorage.initialise(from: config)
             storage.persist()
         }
 

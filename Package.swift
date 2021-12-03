@@ -15,10 +15,11 @@ let package = Package(
     ],
     targets: [
         .executableTarget(name: "netqual", dependencies: ["NQCommands"]),
-        .target(name: "NQCommands", dependencies: ["SwiftCLI", "NQScanner", "NQStorage", "Rainbow"]),
+        .target(name: "NQCommands", dependencies: ["SwiftCLI", "NQScanner", "NQStorage", "Rainbow", "NQTimetable"]),
         .target(name: "NQScanner", dependencies: ["SwiftCLI"]),
         .target(name: "NQTimeline", dependencies: ["NQScanner"]),
         .target(name: "NQStorage", dependencies: ["NQTimeline", "Yams"]),
+        .target(name: "NQTimetable", dependencies: ["NQScanner"]),
         .testTarget(name: "netqualTests", dependencies: ["netqual"]),
         .testTarget(name: "NQScannerTests", dependencies: ["NQScanner"]),
     ]

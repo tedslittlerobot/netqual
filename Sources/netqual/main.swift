@@ -7,6 +7,7 @@ let cli = CLI(name: "netqual", version: "0.0.1", commands: [
     ScanCommand(),
     SetupCommand(),
     ResetCommand(),
+    ScheduleCommand(),
 ])
 
 cli.goAndExit()
