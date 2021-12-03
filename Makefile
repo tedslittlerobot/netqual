@@ -6,4 +6,12 @@ xcode:
 	xed netqual.xcodeproj
 
 build:
+	mkdir build
 	swift build
+	cp .build/debug/netqual build/netqual
+
+clean:
+	rm -rf build
+
+hardClean: clean
+	rm -rf .build
