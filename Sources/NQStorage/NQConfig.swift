@@ -3,7 +3,7 @@ import NQTimeline
 import Yams
 
 public struct NQConfig: Codable {
-    let timelineFile: String
+    public let timelineFile: String
 
     public init(timelineFile: String) {
         self.timelineFile = timelineFile

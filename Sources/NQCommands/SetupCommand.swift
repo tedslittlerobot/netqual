@@ -19,19 +19,13 @@ public class SetupCommand: NQCommand, Command {
         NQConfig.prepare()
 
         if FileManager.default.fileExists(atPath: timelineFile) {
-            if force {
-                stdout <<< "Removing old timeline file...".yellow
-                try! FileManager.default.removeItem(atPath: timelineFile)
-            } else {
-                stderr <<< "ERROR: A file already exists at the path \(timelineFile.clearStyles.yellow)".red.bold
-                exit(1)
-            }
+            stderr <<< "A file already exists at the path \(timelineFile.clearStyles.yellow)".red
+        } else {
+            stdout <<< "Writing config and timeline file...".yellow
+
+            let storage = NQStorage.initialise(from: NQConfig(timelineFile: self.timelineFile))
+            storage.persist()
         }
-
-        stdout <<< "Writing config and timeline file...".yellow
-
-        let storage = NQStorage.initialise(from: NQConfig(timelineFile: self.timelineFile))
-        storage.persist()
 
         stdout <<< "Done!".cyan.bold
     }
